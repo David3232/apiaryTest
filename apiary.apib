@@ -1,0 +1,256 @@
+FORMAT: A1
+HOST: http://localhost/php_api/
+
+# apiName
+
+ApiExample is an Api for create, upload and deleate users.
+
+## Data Structures
+
+### Errors
++ errors (array[Error])
+
+### Error
++ message: default error message
++ code: 1 (number)
+
+### trueSchemaDefault
++ success (boolean)
++ result (string)
+
+## Server [/server]
+
+### Server [GET]
+
++ Relation: get
+
++ Response 200 (application/json)
+
+    + Body
+
+            [
+                {
+                    "success": true,
+                    "result": "The server is running and well."
+                }
+            ]
+
+    + Schema
+
+    + Attributes (trueSchemaDefault)
+
++ Response 408 (application/json)
+
+    + Attributes (Errors)
+
+## Customer [/customer]
+
+### GetCustomer [GET /customer {?id}]
+
++ Relation: get
+
++ Parameters
+
+    + id (number) - Customer ID
+
++ Response 200 (application/json)
+
+    + Body
+
+                {
+                    "success": true,
+                    "result": {
+                        "id": 512,
+                        "name": "Felipe Lotas",
+                        "phone": "313434595",
+                        "age": 85
+                    }
+                }
+
+    + Schema
+
+            {
+                "$schema": "http://json-schema.org/draft-04/schema#",
+                "type": "object",
+                "properties": {
+                    "success": {
+                        "type": "string"
+                    },
+                    "result": {
+                        "id": {
+                            "type": "number"
+                        },
+                        "name": {
+                            "type": "string"
+                        },
+                        "phone": {
+                            "type": "string"
+                        },
+                        "age": {
+                            "type": "number"
+                        }
+                    }
+                }
+            }
+
++ Response 404 (application/json)
+
+    + Attributes (Errors)
+
+### DeleteCustomer [DELETE /customer]
+
++ Relation: delete
+
++ Request JSON Message
+
+    + Accept: application/json
+
+    + Body
+
+            {
+                "id": 512
+            }
+   
+    + Schema
+
+            {
+                "$schema": "http://json-schema.org/draft-04/schema#",
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "number"
+                    }
+                }
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            [
+                {
+                    "succes": true,
+                    "result": "Customer was succesfully deleted."
+                }
+            ]
+
+    + Schema
+
+    + Attributes (trueSchemaDefault)
+
++ Response 404 (application/json)
+
+    + Attributes (Errors)
+
+### PostCustomer [POST /Customer]
+
++ Relation: update
+
++ Request JSON Message
+
+    + Accept: application/json
+
+    + Body
+
+            {
+                "name": "Felipe Lotas",
+                "phone": "313434595",
+                "age": 85
+            }
+
+    + Schema
+
+            {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "phone": {
+                        "type": "string"
+                    },
+                    "age": {
+                        "type": "number"
+                    }
+                }
+            }
+
++ Response 201 (application/json)
+
+    + Body
+
+            [
+                {
+                    "success": true,
+                    "result": {
+                        "id": 5698
+                    }
+                }
+            ]
+
+    + Schema
+
+            {
+                "$schema": "http://json-schema.org/draft-04/schema#",
+                "type": "object",
+                "properties": {
+                    "type": "object",
+                        "result": {
+                            "id": {
+                                "type": "number"
+                            }
+                        }
+                    }
+            }
+
++ Response 400 (application/json)
+
+    + Attributes (Errors)
+
+### PutCustomer [PUT /Customer]
+
++ Relation: insert
+
++ Request JSON Message
+
+    + Accept: application/json
+
+    + Body
+
+            {
+                "id": 512
+                "phone": "313434595"
+            }
+
+    + Schema
+
+            {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "number"
+                    },
+                    "phone": {
+                        "type": "string"
+                    }
+                }
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            [
+                {
+                    "success": true,
+                    "result": "Customer was succesfully updated."
+                }
+            ]
+
+    + Schema
+
+    + Attributes(trueSchemaDefault)
+
++ Response 404 (application/json)
+
+    + Attributes (Errors)
